@@ -14,4 +14,8 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
+app.post('/', (req, res) => {
+  
+})
+
 app.listen(port, () => console.log(`Now server is hosting on https://localhost:${port}`))
