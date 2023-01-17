@@ -3,13 +3,15 @@ const bodyParser = require('body-parser');
 const express = require('express')
 const port = 3000
 const app = express()
-const exphbs = require('express-handlebars')
+const exphbs = require('express-handlebars');
 const routes = require('./routes') //  引用路由器
 
-
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+
+
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
+app.use(express.static('./public/javascripts'))
 
 require('./config/mongoose')
 

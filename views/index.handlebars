@@ -1,18 +1,25 @@
 <div class="container col-8">
   <div class="d-flex flex-column align-items-center mt-5">
     <h3>Account Login</h3>
-    <form action="/" method="post" class="col-6 mt-3">
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="Email" name="email">
-        <label for="floatingInput">Email</label>
+    <form action="/" method="post" class="login-form col-6 mt-3" novalidate>
+
+      <div class="form-floating mb-3 {{#if alert}}was-validated{{/if}}">
+        <input type="email" class="form-control" id="floatingInput" placeholder="Email" name="email"
+          value="{{userAccount}}" required>
+        <label for="validationServerUserEmail">Email</label>
       </div>
-      <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-        <label for="floatingPassword">Password</label>
+      <div class="form-floating {{#if alert}}was-validated{{/if}}">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password"
+          required>
+        <label for="validationServerUserPassword">Password</label>
+        <div class="invalid-feedback">
+          {{#if alert}}{{alert}}{{/if}}
+        </div>
       </div>
       <div class="d-flex justify-content-center mt-5">
         <button type="submit" class="btn btn-primary">Sign In</button>
       </div>
+
     </form>
   </div>
 </div>
