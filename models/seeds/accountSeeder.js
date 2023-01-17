@@ -26,4 +26,12 @@ const users = [
   }
 ]
 
-const mongoose = require('mongoose')
+const db = require('../../config/mongoose')
+const AccountSchema = require('../AccountSchema.js')
+
+db.once('open', () => {
+  users.forEach(data => {
+    AccountSchema.create(data)
+  });
+  console.log('data had been uploaded!')
+})
