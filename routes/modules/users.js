@@ -5,7 +5,7 @@ require('../../config/mongoose')
 
 router.get('/:name', (req, res) => {
   const userName = req.params.name
-  res.send(`Welcome back,${userName} `)
+  res.render('user', { userName })
 })
 
 module.exports = router

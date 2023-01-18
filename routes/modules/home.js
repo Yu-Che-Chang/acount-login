@@ -8,6 +8,10 @@ router.get('/', (req, res) => {
   res.render('index')
 })
 
+router.get('/logout', (req, res) => {
+  res.redirect('/')
+})
+
 router.post('/', (req, res) => {
   const userAccount = req.body.email
   const userPassword = req.body.password
@@ -33,7 +37,7 @@ router.post('/', (req, res) => {
         res.render('index', { alert: '帳號和密碼錯誤，請再輸入一次' })
       }
     })
-  .catch(err => { console.log(err) })
+    .catch(err => { console.log(err) })
 })
 
 module.exports = router
