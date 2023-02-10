@@ -1,4 +1,15 @@
 <div class="container col-8">
+  {{#if userName}}
+  <div class="container">
+    <div class="mt-5 d-flex flex-column align-items-center">
+      <h5>Welcome back,{{userName}}</h5>
+      <form action="/logout" method="get" class="d-flex flex-column">
+        <button type="submit" class="btn btn-primary mt-3">登出</button>
+      </form>
+    </div>
+  </div>
+
+  {{else}}
   <div class="d-flex flex-column align-items-center mt-5">
     <h3>Account Login</h3>
     <form action="/login" method="post" class="login-form col-6 mt-3" novalidate>
@@ -21,5 +32,6 @@
       </div>
 
     </form>
+    {{/if}}
   </div>
 </div>

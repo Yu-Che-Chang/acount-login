@@ -3,8 +3,11 @@ const router = express.Router()
 
 const home = require('./modules/home')
 router.use('/', home)
+router.use('/users', home)
 
-const users = require('./modules/users')
-router.use('/users', users)
+// 404 get error
+router.all('*', (req, res) => {
+  res.status(404).send('<h1>404! Page not found</h1>');
+})
 
 module.exports = router

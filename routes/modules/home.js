@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require('express-session')
 const { ClientSession } = require('mongodb')
 const router = express.Router()
 const AccountSchema = require('../../models/AccountSchema')
@@ -18,16 +19,28 @@ router.get('/', (req, res) => {
   const cookieSessionId = req.cookies.sessionId
   let userName = ''
   // 確認是否有存取session
-  if (sessionStore.find(user => {
-    userName = user.userFirstName
-    return (user.sessionId === cookieSessionId)
-  })) {
-    console.log(`用戶${userName}已登入`)
-    res.redirect(`/users/${userName}`)
+  if (cookieSessionId) {
+    sessionStore.find(user => {
+      userName = user.firstName
+      return (user.sessionId === cookieSessionId)
+    })
+    res.redirect('/users')
   } else {
-    console.log('新用戶登入')
+    console.log('新用戶加入')
     res.render('index')
   }
+})
+
+// users routers
+router.get('/users', (req, res) => {
+  const cookieSessionId = req.cookies.sessionId
+  let userName = ''
+  sessionStore.find(user => {
+    if (user.sessionId === cookieSessionId) {
+      userName = user.userFirstName
+      res.render('index', { userName })
+    }
+  })
 })
 
 router.get('/logout', (req, res) => {
@@ -53,7 +66,7 @@ router.post('/login', (req, res) => {
           // 先產成session Id 存入 session store
           applySessionStore(data.firstName, data.email, sessionId)
           res.cookie('sessionId', sessionId) // 手動產生sessionId 16碼
-          res.redirect(`/users/${data.firstName}`)
+          res.redirect('/users')
         } else {
           // 帳號正確密碼錯誤
           console.log('Password 錯誤')
